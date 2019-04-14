@@ -16,7 +16,8 @@ import android.view.View
 import android.view.ViewGroup
 
 import kotlinx.android.synthetic.main.activity_search2.*
-import android.R
+
+
 
 
 
@@ -48,6 +49,11 @@ class SearchActivity : AppCompatActivity() {
         tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(container))
 
         fab.setOnClickListener { view ->
+
+            /*val fragmentManager = supportFragmentManager
+            fragmentManager.beginTransaction()
+                .add(R.id.post,Fragment())
+                .commit()*/
             /*
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()*/
