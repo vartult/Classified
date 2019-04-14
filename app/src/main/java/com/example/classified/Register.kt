@@ -197,7 +197,7 @@ class Register : AppCompatActivity() {
         mUser?.setUser_id(userid)
 
         val reference = FirebaseDatabase.getInstance().reference
-        
+
 
         //insert into users node
         reference.child(getString(R.string.node_users))
