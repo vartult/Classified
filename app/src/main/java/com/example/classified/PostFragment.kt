@@ -12,6 +12,6 @@ class PostFragment : Fragment() {
         inflater!!.inflate(R.layout.fragment_post, container, false)
 
     companion object {
-        fun newInstance(): FragmentOne = FragmentOne()
+        fun newInstance(): PostFragment = PostFragment()
     }
 }

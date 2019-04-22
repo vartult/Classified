@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -16,6 +17,8 @@ import android.view.View
 import android.view.ViewGroup
 
 import kotlinx.android.synthetic.main.activity_search2.*
+
+
 
 
 
@@ -50,11 +53,9 @@ class SearchActivity : AppCompatActivity() {
 
         fab.setOnClickListener { view ->
 
-            /*val fragmentManager = supportFragmentManager
-            fragmentManager.beginTransaction()
-                .add(R.id.post,Fragment())
-                .commit()*/
-            /*
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container,PostFragment.newInstance()).commit()
+/*
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()*/
         }
