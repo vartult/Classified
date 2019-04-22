@@ -84,6 +84,8 @@ class SearchActivity : AppCompatActivity() {
         val id = item.itemId
 
         if (id == R.id.action_settings) {
+            val intent = Intent(this@SearchActivity, Account::class.java)
+            startActivity(intent)
             return true
         }
 
