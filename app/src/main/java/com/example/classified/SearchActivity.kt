@@ -52,9 +52,11 @@ class SearchActivity : AppCompatActivity() {
         tabs.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(container))
 
         fab.setOnClickListener { view ->
-
+            appbar.setExpanded(false, false)
+            appbar.visibility = View.GONE
+            fab.alpha = 0F
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container,PostFragment.newInstance()).commit()
+                .replace(R.id.fragment_container,PostFragment.newInstance()).addToBackStack(null).commit()
 /*
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()*/
@@ -62,6 +64,12 @@ class SearchActivity : AppCompatActivity() {
 
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        appbar.setExpanded(true, true)
+        appbar.visibility = View.VISIBLE
+        fab.alpha = 1F
+    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
