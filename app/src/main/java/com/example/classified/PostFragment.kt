@@ -8,12 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+
+import java.util.HashMap
 import android.widget.Toast
 import android.os.AsyncTask.execute
 import android.os.AsyncTask
@@ -181,20 +177,20 @@ uploadTask.addOnSuccessListener { taskSnapshot ->
     Toast.makeText(activity, "Post Success", Toast.LENGTH_SHORT).show()
 
     //insert the download url into the firebase database
-    val firebaseUri = taskSnapshot.getDownloadUrl()
-
+    val firebaseUri = storageReference.downloadUrl
+    //val firebaseUri: Uri = task.getResult()
     val reference = FirebaseDatabase.getInstance().reference
 
     var post = Post()
     post.setImage(firebaseUri.toString())
-    post.setCity(input_city!!.getText().toString())
-    post.setContact_email(input_email!!.getText().toString())
-    post.setCountry(input_country!!.getText().toString())
-    post.setDescription(input_description!!.getText().toString())
-    post.setPost_id(postId)
-    post.setPrice(price!!.getText().toString())
-    post.setState_province(input_state_province!!.getText().toString())
-    post.setTitle(input_title!!.getText().toString())
+    post.setCity(input_city!!.text.toString())
+    post.setContact_email(input_email!!.text.toString())
+    post.setCountry(input_country!!.text.toString())
+    post.setDescription(input_description!!.text.toString())
+    post.setPost_id(postId!!)
+    post.setPrice(price!!.text.toString())
+    post.setState_province(input_state_province!!.text.toString())
+    post.setTitle(input_title!!.text.toString())
     post.setUser_id(FirebaseAuth.getInstance().currentUser!!.uid)
 
     reference.child("posts")
@@ -246,6 +242,6 @@ return stream.toByteArray()
     }
 
     private fun isEmpty(string: String): Boolean {
-        return string.equals("")
+        return string == ""
     }
 }
