@@ -39,5 +39,7 @@
     <string name="tab_text_4">Account</string>
     <string name="action_settings">Account</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="choose">Choose from Memory</string>
+    <string name="camera">Open Camera</string>
 
 </resources>

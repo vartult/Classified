@@ -1,5 +1,6 @@
 package com.example.classified
 
+import android.Manifest
 import android.content.Intent
 import android.support.design.widget.TabLayout
 import android.support.design.widget.Snackbar
@@ -17,6 +18,15 @@ import android.view.View
 import android.view.ViewGroup
 
 import kotlinx.android.synthetic.main.activity_search2.*
+import android.support.annotation.NonNull
+import android.support.v4.app.ActivityCompat
+import android.content.pm.PackageManager
+import android.support.v4.content.ContextCompat
+import android.Manifest.permission
+import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
+
+
 
 
 
@@ -26,20 +36,13 @@ import kotlinx.android.synthetic.main.activity_search2.*
 
 class SearchActivity : AppCompatActivity() {
 
-    /**
-     * The [android.support.v4.view.PagerAdapter] that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * [android.support.v4.app.FragmentStatePagerAdapter].
-     */
+    private val REQUEST_CODE = 1
     private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search2)
-
+        verifyPermissions()
         setSupportActionBar(toolbar)
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -108,5 +111,30 @@ class SearchActivity : AppCompatActivity() {
         override fun getCount(): Int {
             return 2
         }
+    }
+
+    private fun verifyPermissions() {
+        val permissions = arrayOf(
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
+        )
+
+        if (ContextCompat.checkSelfPermission(this.applicationContext, permissions[0]) == PackageManager.PERMISSION_GRANTED
+            && ContextCompat.checkSelfPermission(this.applicationContext, permissions[1]) == PackageManager.PERMISSION_GRANTED
+            && ContextCompat.checkSelfPermission(this.applicationContext, permissions[2]) == PackageManager.PERMISSION_GRANTED
+        ) {
+            //setupViewPager()
+        } else {
+            ActivityCompat.requestPermissions(
+                this@SearchActivity,
+                permissions,
+                REQUEST_CODE
+            )
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        verifyPermissions()
     }
 }

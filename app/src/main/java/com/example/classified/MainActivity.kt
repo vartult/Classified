@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
+
 mLogin?.setOnClickListener {
     //check if the fields are filled out
     if ((!isEmpty(mEmail?.text.toString()) && !isEmpty(mPassword?.text.toString()))) {
@@ -68,6 +69,9 @@ mLogin?.setOnClickListener {
             val intent = Intent(this@MainActivity, Register::class.java)
             startActivity(intent)
         }
+
+        //UniversalImageLoader.setImage("res://money_icon.png", mLogo!!);
+
         hideSoftKeyboard()
 }
 
