@@ -166,22 +166,21 @@ class PostFragment : Fragment(), Dialog_selector.OnPhotoSelectedListener {
     private fun executeUploadTask() {
 Toast.makeText(activity, "uploading image", Toast.LENGTH_SHORT).show()
 
-val postId = FirebaseDatabase.getInstance().reference.push().key
+val postId: String = FirebaseDatabase.getInstance().reference.push().key!!
 
-val storageReference = FirebaseStorage.getInstance().reference
+val storageReference: StorageReference = FirebaseStorage.getInstance().reference
 .child(("posts/users/" + FirebaseAuth.getInstance().currentUser!!.uid +
 "/" + postId + "/post_image"))
 
 val uploadTask = storageReference.putBytes(mUploadBytes!!)
-uploadTask.addOnSuccessListener { taskSnapshot ->
+uploadTask.addOnSuccessListener {
     Toast.makeText(activity, "Post Success", Toast.LENGTH_SHORT).show()
 
     //insert the download url into the firebase database
-    val firebaseUri = storageReference.downloadUrl
-    //val firebaseUri: Uri = task.getResult()
-    val reference = FirebaseDatabase.getInstance().reference
+    val firebaseUri= storageReference.downloadUrl
+    val reference: DatabaseReference = FirebaseDatabase.getInstance().reference
 
-    var post = Post()
+    val post = Post()
     post.setImage(firebaseUri.toString())
     post.setCity(input_city!!.text.toString())
     post.setContact_email(input_email!!.text.toString())
@@ -192,9 +191,8 @@ uploadTask.addOnSuccessListener { taskSnapshot ->
     post.setState_province(input_state_province!!.text.toString())
     post.setTitle(input_title!!.text.toString())
     post.setUser_id(FirebaseAuth.getInstance().currentUser!!.uid)
-
     reference.child("posts")
-        .child(postId!!)
+        .child(postId)
         .setValue(post)
 
     resetFields()
@@ -215,7 +213,7 @@ return stream.toByteArray()
 
 
 
-    fun resetFields(){
+    private fun resetFields(){
         post_image=null
         input_title!!.text = " "
         input_description!!.text=" "
